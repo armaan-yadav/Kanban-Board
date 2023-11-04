@@ -62,7 +62,6 @@ function Card({
         </div>
         <div className="card-footer flex justify-between">
           <span>
-            date :
             {date && (
               <>
                 {" "}

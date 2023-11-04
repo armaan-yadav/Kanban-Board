@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 function AddCard({
   text,
@@ -12,11 +12,26 @@ function AddCard({
 }) {
   const [showEditMenu, setShowEditMenu] = useState(false);
   const [title, setTitle] = useState(text);
+  const editRef = useRef(null);
+  const handleClick = (event) => {
+    if (!editRef.current.contains(event.target)) {
+      setShowEditMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  });
 
   return (
     <>
       <div
         className={`px-[1rem] flex  flex-col min-w-[25%] bg-contrast h-fit ${style}`}
+        ref={editRef}
       >
         {showEditMenu ? (
           <form
@@ -49,7 +64,10 @@ function AddCard({
         ) : (
           <button
             className="cursor-pointer"
-            onClick={() => setShowEditMenu(true)}
+            onClick={(e) => {
+              setShowEditMenu(true);
+              e.stopPropagation();
+            }}
           >
             {text || "Add "}
           </button>

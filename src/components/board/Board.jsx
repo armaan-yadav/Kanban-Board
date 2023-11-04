@@ -5,13 +5,11 @@ import AddCard from "../../utils/AddButton";
 function Board() {
   const [boards, setBoards] = useState([
     {
-      // id: Date.now() + Math.random(),
-      id: "b1",
+      id: Date.now() + Math.random(),
       title: "To Do",
       cards: [
         {
-          // id: Date.now() + Math.random(),
-          id: "b1c1",
+          id: Date.now() + Math.random(),
           heading: "Card 1",
           tasks: ["hustle karo bhasad nayi"],
           labels: [
@@ -27,11 +25,9 @@ function Board() {
           completed: [],
           desc: "react is a beast",
           date: "",
-          // date: `${Date().}`,
         },
         {
-          // id: Date.now() + Math.random(),
-          id: "b1c2",
+          id: Date.now() + Math.random(),
           heading: "Card 2",
           tasks: [],
           labels: [

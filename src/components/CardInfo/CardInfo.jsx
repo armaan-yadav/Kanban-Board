@@ -5,13 +5,11 @@ import CardLabel from "../../components/card/CardLabel";
 function CardInfo(props) {
   const { labels, heading, id, desc, date, tasks, completed } = props;
   const [values, setValues] = useState({ ...props.card });
-  const [done, setDone] = useState(false);
   const [activeColor, setActiveColor] = useState("");
   const calculatePercentage = () => {
     if (tasks.length == 0) return "0%";
-    const completed = tasks.filter((e) => e.completed).length;
-    // console.log((completed / tasks.length) * 100);
-    return `${(completed / tasks.length) * 100}%`;
+    const temp = (completed.length / tasks.length) * 100;
+    return `${temp}%`;
   };
   const randomColorArray = [
     "bg-[#FF5733]",
@@ -103,6 +101,9 @@ function CardInfo(props) {
               defaultValue={
                 date ? new Date().toISOString().substring(0, 10) : ""
               }
+              onChange={(e) => {
+                setValues({ ...values, date: e.target.value });
+              }}
             />
           </div>
           <div className="labels">
@@ -178,7 +179,11 @@ function CardInfo(props) {
                           !a.target.checked ? removeCompleted(e) : "";
                         }}
                       />
-                      <p className={done && `line-through`}>{e}</p>
+                      <p
+                        className={completed.includes(e) ? `line-through` : ``}
+                      >
+                        {e}
+                      </p>
                     </div>
                     <i
                       className="fa-solid fa-trash cursor-pointer"
